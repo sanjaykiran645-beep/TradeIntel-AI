@@ -1,8 +1,11 @@
 import { createServer } from 'node:http';
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { existsSync, createReadStream, statSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { resolve, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import pg from 'pg';
+import { migrationPlanThrough } from './api/_migration-plan.js';
 
 // Load local environment files if present (for local testing of the server)
 for (const envFile of ['.env.local', '.env.vercel.local']) {
@@ -361,6 +364,39 @@ const server = createServer(async (req, res) => {
   res.writeHead(503, { 'Content-Type': 'text/plain; charset=utf-8' });
   res.end('TradeIntel AI: Frontend bundle not built. Please run `npm run build` before starting the server.');
 });
+
+async function ensureMigrations() {
+  if (String(process.env.AUTO_MIGRATE || '').toLowerCase() !== 'true') return;
+  const dbUrl = String(process.env.DATABASE_DIRECT_URL || process.env.DATABASE_URL || '').trim();
+  if (!dbUrl) return;
+  const pool = new pg.Pool({ connectionString: dbUrl, max: 1, connectionTimeoutMillis: 10000 });
+  let client;
+  try {
+    client = await pool.connect();
+    await client.query('BEGIN');
+    await client.query('CREATE TABLE IF NOT EXISTS schema_migrations (version TEXT PRIMARY KEY, checksum TEXT NOT NULL, applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+    const existing = await client.query('SELECT version FROM schema_migrations');
+    const applied = new Set(existing.rows.map(r => r.version));
+    for (const m of migrationPlanThrough('007_response_draft_send_state')) {
+      if (applied.has(m.version)) continue;
+      const sql = await readFile(join(__dirname, 'database', 'migrations', m.file), 'utf8');
+      const checksum = createHash('sha256').update(sql).digest('hex');
+      await client.query(sql);
+      await client.query('INSERT INTO schema_migrations (version, checksum) VALUES ($1, $2)', [m.version, checksum]);
+      console.log(`[TRADEINTEL AI] Applied migration ${m.version}`);
+    }
+    await client.query('COMMIT');
+    console.log('[TRADEINTEL AI] Database migrations up to date.');
+  } catch (err) {
+    if (client) await client.query('ROLLBACK').catch(() => {});
+    console.error('[TRADEINTEL AI] Auto-migration warning:', err instanceof Error ? err.message : err);
+  } finally {
+    if (client) client.release();
+    await pool.end().catch(() => {});
+  }
+}
+
+await ensureMigrations();
 
 server.listen(PORT, HOST, () => {
   console.log(`[TRADEINTEL AI] Production server listening on http://${HOST}:${PORT}`);
