@@ -1,0 +1,351 @@
+﻿{
+    "capturedAt":  "2026-10-04T04:31:44.8073990Z",
+    "gitAvailable":  false,
+    "gitDirectoryPresent":  false,
+    "files":  [
+                  {
+                      "path":  ".gitignore",
+                      "sha256":  "264D38748FB35DF9320D1627432D925411A24AD6B18593AE4B54BE80463A7491"
+                  },
+                  {
+                      "path":  ".vite-source-tags.js",
+                      "sha256":  "AA4B51FE049734BF0835E8EF025B15FF5C22C4C033C1BB6BED8AA954D3763C85"
+                  },
+                  {
+                      "path":  "backend-source.txt",
+                      "sha256":  "9756BE8118D0D710BC4CB170F89973BD0DF6844CD2026F07EAAAE4A9ADC579E7"
+                  },
+                  {
+                      "path":  "eslint.config.js",
+                      "sha256":  "B05534051E8404225F0664E7A42EBBA41DEB13E1A671A2E8C12BD7B45AA1CC8D"
+                  },
+                  {
+                      "path":  "index.html",
+                      "sha256":  "04BF954F11C2143978BC1245492DD04061EB5F4B04E9C15D85A1F8FA6377E615"
+                  },
+                  {
+                      "path":  "package-lock.json",
+                      "sha256":  "6EA9C804DAA57D3821A23261D716F5116034572DC2DF5EFD364954C3E18610FE"
+                  },
+                  {
+                      "path":  "package.json",
+                      "sha256":  "7C4C5012F10CF3688E5DE40963155960A2822A3D5568956CB1EB8ACC3E6EF5F2"
+                  },
+                  {
+                      "path":  "README.md",
+                      "sha256":  "699446A0E03C0503DDAF36520CD58CEC8B47E04A330C0A07496FFAC507E62CBF"
+                  },
+                  {
+                      "path":  "tsconfig.app.json",
+                      "sha256":  "0F53246D1A1B54B3F8EF1DEC49D050C4065C19F5805ECE72AB97795748106255"
+                  },
+                  {
+                      "path":  "tsconfig.json",
+                      "sha256":  "770B4140BBB581E2DFD9EA9946FFC9C75A1D86BA7D2DB5F77C83E37CBDF9D808"
+                  },
+                  {
+                      "path":  "tsconfig.node.json",
+                      "sha256":  "C3DD0FB522FEBA3596713F51B95BD53D781D845D24AEDBFA2AC093D8B39C5120"
+                  },
+                  {
+                      "path":  "vercel.json",
+                      "sha256":  "3F28E65A15BABF160D4CB647D2446EA75ED55EB4DC3EE9B518858FC793FF6412"
+                  },
+                  {
+                      "path":  "vite.config.ts",
+                      "sha256":  "2BF6A3F0E57F12174BBE89266B2567EB28F27FF9AD6C234ED9EB59D2195273AB"
+                  },
+                  {
+                      "path":  ".vercel\\project.json",
+                      "sha256":  "0CACD15672CE48EB198BA0DED13DED1D38EE2D378F06EE078B4241C348E666B4"
+                  },
+                  {
+                      "path":  ".vercel\\README.txt",
+                      "sha256":  "F5D1ED0F5032AE128931F46459B5FAA1AF6319FC2DFB3E7A5FE54A84BF93DBD6"
+                  },
+                  {
+                      "path":  "api\\admin.js",
+                      "sha256":  "E7A3FBDF413061FBAC60C940E13DCAF69BDF30A287AACB6C19FE5AA5338B4890"
+                  },
+                  {
+                      "path":  "api\\companies.js",
+                      "sha256":  "67F7FB2FCB8E2C777F9DA601D626013AD583D236E760D1737E9A0AC1AE549B29"
+                  },
+                  {
+                      "path":  "api\\contacts.js",
+                      "sha256":  "A00FF4697CF58BC549D7A01A5B3231D4F36CC744536A50581FF5B5F207E41383"
+                  },
+                  {
+                      "path":  "api\\crm.js",
+                      "sha256":  "B45377E8405E9F72D7CB9D4708C0AB2A85C9AC78FFFEFC7D3DD962A8276CAC42"
+                  },
+                  {
+                      "path":  "api\\dashboard.js",
+                      "sha256":  "45DCB1BDAB09FD6AF310A633E1806981CE1570ECF59F20913D93107747397E6A"
+                  },
+                  {
+                      "path":  "api\\dataset-counts.js",
+                      "sha256":  "8205241854C22BFABA2F20116D27FA1D62A9D18AA188A0D84747C9A013245121"
+                  },
+                  {
+                      "path":  "api\\dataset-retention.js",
+                      "sha256":  "25F15C1CF956997065E832FEAF19833BB70B317843F439BDA4F5BAA133A7E4AF"
+                  },
+                  {
+                      "path":  "api\\datasets.js",
+                      "sha256":  "43DB20677913C904FF3A02266E9803F4BF718B90A3A605815345A2A0886F5CAB"
+                  },
+                  {
+                      "path":  "api\\db-client.js",
+                      "sha256":  "A158326DAE7E2B7C5777F3377989EB106A2B08B489288F446A5635F366470B05"
+                  },
+                  {
+                      "path":  "api\\db-wake.js",
+                      "sha256":  "B7EAC1D7960CB7F3E0E93713689D5D085D328ED3DA753934DD65C9D5A3A5E62A"
+                  },
+                  {
+                      "path":  "api\\email-drafts.js",
+                      "sha256":  "252D4BA5A7949F8EA6726A8E75D670980C55F28F94F1825ECAAEAF70147637F8"
+                  },
+                  {
+                      "path":  "api\\email-engine.js",
+                      "sha256":  "841ABE53A3171E40D65E8817A7901DB6FC99DCAF4DA3B17C32C84021941EEAD8"
+                  },
+                  {
+                      "path":  "api\\external-pipeline.js",
+                      "sha256":  "F97A5745EBFF17793E035CF3063ADB6232E539C23A41D2C0A971F761F4421071"
+                  },
+                  {
+                      "path":  "api\\followup.js",
+                      "sha256":  "E3611CB2E16D6C2E291DD3A6F9427702812B7B0EE63CCFC5429182B6B6A88C3F"
+                  },
+                  {
+                      "path":  "api\\hostinger.js",
+                      "sha256":  "0C4245E5D25F9E6FCE5A2A025BDA4AF919976A5C782A97A81338BBAECBFD7297"
+                  },
+                  {
+                      "path":  "api\\inbox.js",
+                      "sha256":  "02E6136B2E3F23C9E958AF1C5DE727638669E8078FAE6DC2B3CE0171797304AB"
+                  },
+                  {
+                      "path":  "api\\intelligence.js",
+                      "sha256":  "C40FF604C4CA447C528475F2F162621372FD3E7E8E6A0404ECCB4BBC02B071CA"
+                  },
+                  {
+                      "path":  "api\\lead-qualification.js",
+                      "sha256":  "2FF2FCE47BEF6F741259BDFEFAF6238E9A0BAC38C9E4CCEB9DC2100A774FDAB5"
+                  },
+                  {
+                      "path":  "api\\leads.js",
+                      "sha256":  "431AC7FC984444237CA4789441940F7698E5A42A4A0CC1BF0117C2FAD7594117"
+                  },
+                  {
+                      "path":  "api\\markets.js",
+                      "sha256":  "E742253B9D03AB5058A1135A4F433F04C4B1A05A8918AE13E7A4D418136C4A4E"
+                  },
+                  {
+                      "path":  "api\\mime-message.js",
+                      "sha256":  "24D130375915DB5361D7E5851125A9AD56C17288772A8469F52749D3DD2C9AA0"
+                  },
+                  {
+                      "path":  "api\\outreach-guards.js",
+                      "sha256":  "48171CF30FC7909038CC383A25E3BD1DB1D7FDC3374471AD9E638FD88D9E176B"
+                  },
+                  {
+                      "path":  "api\\pandas_analysis.py",
+                      "sha256":  "8EF6C2FFD7DEC250B57E0E74B448D7320E790FF09697D12C81EC34D4B130AF15"
+                  },
+                  {
+                      "path":  "api\\pipeline-entities.js",
+                      "sha256":  "0C226244E60EDB2FEF477453F50DED88D037A0C508FE88B59CD1FB5F1332881E"
+                  },
+                  {
+                      "path":  "api\\products.js",
+                      "sha256":  "7724DCF26379F648CA8EAF1DA5A82242FDC04CCCE74B95622BCA76161C777528"
+                  },
+                  {
+                      "path":  "api\\provider-capabilities.js",
+                      "sha256":  "EBB0392AAAD77635565BCF9C75292E36C50B2AFF86627B72D0BC3E4BEF7D07E6"
+                  },
+                  {
+                      "path":  "api\\python-analysis.js",
+                      "sha256":  "3F05A8D33D5BC25389B29AE5ECFE53ABAAB0E7B8DE38FA6499B6B0A38AE4335F"
+                  },
+                  {
+                      "path":  "api\\research.js",
+                      "sha256":  "19EDF5131F2F03A22E225C27A21478E7C8E622BB10A1A85196C45064E158E149"
+                  },
+                  {
+                      "path":  "api\\responses.js",
+                      "sha256":  "706C0D8800EF28D2322DC0A2E1888E247484657CF55DF311983EE85CB04C6E51"
+                  },
+                  {
+                      "path":  "api\\sql-risk-analysis.js",
+                      "sha256":  "C77F9224D7342C283095D1A2BB3D74413B7EA4C2B7E1AE6B1BE652454A7BC0BA"
+                  },
+                  {
+                      "path":  "api\\supervisor.js",
+                      "sha256":  "BB721CA932B3D24FADF0AEDF1B79BBD1A4351CFFD73C1499E8A8A47EAD1F72CB"
+                  },
+                  {
+                      "path":  "api\\utils.js",
+                      "sha256":  "9876BC31385390EF2689FB5C02EEEF15924032901AAF4410A84D82671A119426"
+                  },
+                  {
+                      "path":  "public\\favicon.svg",
+                      "sha256":  "321175534AE393FF2089A4A9DC5611689FBAECAA7A8675180E5FCD95D38ED0A2"
+                  },
+                  {
+                      "path":  "public\\vite.svg",
+                      "sha256":  "4A748AFD443918BB16591C834C401DAE33E87861AB5DBAD0811C3A3B4A9214FB"
+                  },
+                  {
+                      "path":  "scripts\\dataset-retention-dry-run.mjs",
+                      "sha256":  "39318FCD5E7ACE768C7E257925342692F1EEBF386AAE82FD26A265C390D0683D"
+                  },
+                  {
+                      "path":  "scripts\\phase5-smoke.mjs",
+                      "sha256":  "5486B03F6F7ED5F3886CC1F5BCC134FFB2939FAB5F599D7453CD92734E9F0B78"
+                  },
+                  {
+                      "path":  "scripts\\phase6-smoke.mjs",
+                      "sha256":  "07C62B411328370ADCD28A0D9245483970D84EA42F9D80A1EF3B42D6228901AF"
+                  },
+                  {
+                      "path":  "scripts\\test-dataset-retention.mjs",
+                      "sha256":  "EEB6CED5B0A7C02D86BD1D90E1E4A3830C37BC9E0990075EBCA04B300B097018"
+                  },
+                  {
+                      "path":  "scripts\\vercel-dev.mjs",
+                      "sha256":  "9E35895F0FBBBFB74391E300F76B9AA3D44A6C0F4BE2D9BAB4CECBD528C7849D"
+                  },
+                  {
+                      "path":  "src\\App.css",
+                      "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                  },
+                  {
+                      "path":  "src\\App.tsx",
+                      "sha256":  "34CA495922C17CD9B5C459F13F3204BFADC9C9A795690EFB015283BD01C86099"
+                  },
+                  {
+                      "path":  "src\\index.css",
+                      "sha256":  "26B09238E7B866192556F6ED016D0FAF19978E3E54A56A161BF5EF621247946A"
+                  },
+                  {
+                      "path":  "src\\main.tsx",
+                      "sha256":  "6E9E5807FCBD48B75A96DB5CBEF36C996262196BE42E6D4760DC86BABBE61AD2"
+                  },
+                  {
+                      "path":  "src\\assets\\react.svg",
+                      "sha256":  "35EF61ED53B323AE94A16A8EC659B3D0AF3880698791133F23B084085AB1C2E5"
+                  },
+                  {
+                      "path":  "src\\components\\AppShell.jsx",
+                      "sha256":  "B8DE63E20AA7AA6B1992FDB4374ECC18C7ED7970F115A588DDDBFCA9F5A9BA11"
+                  },
+                  {
+                      "path":  "src\\components\\ProtectedRoute.jsx",
+                      "sha256":  "96E9BEADE859DF06761524A9B98D90092A891B25994FB8EC50C29A14844533E6"
+                  },
+                  {
+                      "path":  "src\\components\\Sidebar.jsx",
+                      "sha256":  "125376111DBBFB32C04E53869E320B6A28D8418F8A4F96756634B05C4EC6A2D7"
+                  },
+                  {
+                      "path":  "src\\components\\Topbar.jsx",
+                      "sha256":  "CD030B6201A7FDB05BD362743C39D09586EFC5FF6968CAC24313B26F135EEF94"
+                  },
+                  {
+                      "path":  "src\\components\\UI.jsx",
+                      "sha256":  "9F35ABC5D0EFC37BF7C2925B7A6F480A61D503DB04750B59798BA43158DB0A4B"
+                  },
+                  {
+                      "path":  "src\\contexts\\AuthContext.jsx",
+                      "sha256":  "4EC7FBD137D4693B797F3914E4217FD40B5F7C23AE5540E3A7271617D141E738"
+                  },
+                  {
+                      "path":  "src\\lib\\api-response.js",
+                      "sha256":  "1DDF90E7B7C00089369FE4FF8334C51E5DA1FCF8CE6A3ED33002653CB67D1025"
+                  },
+                  {
+                      "path":  "src\\lib\\api.js",
+                      "sha256":  "C7B23EA6EDB0D7F2AE568F500BBF6A0E8B9702626B762B01B8C74E9E751DD03E"
+                  },
+                  {
+                      "path":  "src\\lib\\googleAuth.js",
+                      "sha256":  "B008EF0AB92C207B31EDFB141F649F300D0A8BC54F07729FFF8418AC699384E1"
+                  },
+                  {
+                      "path":  "src\\lib\\supabase.js",
+                      "sha256":  "C6B4B8CA75671C9C12C96D022A619676735F63083B7847536AB42859604D7370"
+                  },
+                  {
+                      "path":  "src\\pages\\Admin.jsx",
+                      "sha256":  "26AB8E313CE8F131ABD577E9023725074E710817B85D6FEED7D933E6EB22A054"
+                  },
+                  {
+                      "path":  "src\\pages\\Companies.jsx",
+                      "sha256":  "3E57548D0A45A8A9E1327C37920D89B3DCF9D55F30CA76B1EAAFC67D21D3E0E1"
+                  },
+                  {
+                      "path":  "src\\pages\\Contacts.jsx",
+                      "sha256":  "0E99530FB2619968E58DEC3CA7D70CF331E1101686D55577385D067D8F714AF6"
+                  },
+                  {
+                      "path":  "src\\pages\\Customer360.jsx",
+                      "sha256":  "EEB4E383C81EA82EE614FD503FD9198D600C32B6BA66F6BB324E666CDA93B25D"
+                  },
+                  {
+                      "path":  "src\\pages\\Dashboard.jsx",
+                      "sha256":  "F74E5410A038C3A49923750EC8FD80341EA0F92E42436E259244621344DE1724"
+                  },
+                  {
+                      "path":  "src\\pages\\Followups.jsx",
+                      "sha256":  "1AFA5A47D9FB08EA029978E9402BA3B45EB14D556C3CC0A8E0E9CCE59FDCA7BB"
+                  },
+                  {
+                      "path":  "src\\pages\\ImportData.jsx",
+                      "sha256":  "F8ADFEC22FCD2E24CED701AAF8A7C5AE065F8DBB1B095F55A1B16C21EF8A7BE5"
+                  },
+                  {
+                      "path":  "src\\pages\\Inbox.jsx",
+                      "sha256":  "375F639B06AB8B6AB30FFB6648F76FDA477FDB3DF285DAF26488CBD3989297B2"
+                  },
+                  {
+                      "path":  "src\\pages\\Leads.jsx",
+                      "sha256":  "B85490E9D2EA2B1A610DC54B7AD434C733FF88E9FAF58087C352E98C272D9AB3"
+                  },
+                  {
+                      "path":  "src\\pages\\Login.jsx",
+                      "sha256":  "FEEF5C9809FC6DA641AB6F972168AC7B23E945256575DA407878AA67A81358F2"
+                  },
+                  {
+                      "path":  "src\\pages\\Markets.jsx",
+                      "sha256":  "F95C384611FC4BE9F2DB20B7BF4FA7B787213D12F2BA7BB40700771358298B2C"
+                  },
+                  {
+                      "path":  "src\\pages\\Opportunities.jsx",
+                      "sha256":  "A63D0F3A1F89ACC98B48F63A1E4133D719301644EDCA947FF86E901AA27378D0"
+                  },
+                  {
+                      "path":  "src\\pages\\Outreach.jsx",
+                      "sha256":  "E850958ECF2FBE61AD3FD11DC7ECADA218687CC8A4C4D2867732F6A09AF7C408"
+                  },
+                  {
+                      "path":  "src\\pages\\Products.jsx",
+                      "sha256":  "C5728D4BE1CFB0677F950BCE315108143151D9C98C03D2D4B0E42B8FF8104B84"
+                  },
+                  {
+                      "path":  "src\\pages\\Reports.jsx",
+                      "sha256":  "1937617575BE4BDC9BA822A2D9403A0BE266C477901B3F2566922703A72BDBDD"
+                  },
+                  {
+                      "path":  "src\\pages\\Research.jsx",
+                      "sha256":  "660DD5B7B3F21A4F30ED9439CC761BC3F46CAFEC6D46F9B4C91DBA59CDA27FFC"
+                  },
+                  {
+                      "path":  "src\\pages\\Responses.jsx",
+                      "sha256":  "FC15E5917F4CE80DECAAA7A157F42D97BF2D990338275A0A332A427F1DB6E969"
+                  }
+              ]
+}
