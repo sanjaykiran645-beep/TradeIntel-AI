@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import { existsSync, createReadStream, statSync } from 'node:fs';
 import { resolve, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,6 +19,197 @@ const __dirname = resolve(fileURLToPath(import.meta.url), '..');
 const DIST_DIR = resolve(__dirname, 'dist');
 const PORT = Number(process.env.PORT) || 10000;
 const HOST = process.env.HOST || '0.0.0.0';
+
+// Optional built-in Supabase-compatible admin auth (used when ADMIN_AUTH_EMAIL & ADMIN_AUTH_PASSWORD are set)
+const ADMIN_AUTH_EMAIL = String(process.env.ADMIN_AUTH_EMAIL || '').trim().toLowerCase();
+const ADMIN_AUTH_PASSWORD = String(process.env.ADMIN_AUTH_PASSWORD || '');
+const ADMIN_AUTH_USER_ID = String(process.env.ADMIN_SUPABASE_USER_ID || '55d9581c-fbbe-4e84-9acd-49e13d9c1a2c').trim();
+const ADMIN_AUTH_ENABLED = Boolean(ADMIN_AUTH_EMAIL && ADMIN_AUTH_PASSWORD);
+const ADMIN_AUTH_SECRET = String(
+  process.env.ADMIN_AUTH_SECRET || process.env.JWT_SECRET || `${ADMIN_AUTH_USER_ID}:${ADMIN_AUTH_PASSWORD}`
+);
+
+function base64UrlEncode(input) {
+  return Buffer.from(typeof input === 'string' ? input : JSON.stringify(input))
+    .toString('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+}
+
+function base64UrlDecode(str) {
+  const padded = str.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (str.length % 4)) % 4);
+  return Buffer.from(padded, 'base64').toString('utf8');
+}
+
+function signAdminJwt(payload) {
+  const header = base64UrlEncode({ alg: 'HS256', typ: 'JWT' });
+  const body = base64UrlEncode(payload);
+  const sig = createHmac('sha256', ADMIN_AUTH_SECRET)
+    .update(`${header}.${body}`)
+    .digest('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+  return `${header}.${body}.${sig}`;
+}
+
+function verifyAdminJwt(token) {
+  if (!token || typeof token !== 'string') return null;
+  const parts = token.split('.');
+  if (parts.length !== 3) return null;
+  const [header, body, sig] = parts;
+  const expected = createHmac('sha256', ADMIN_AUTH_SECRET)
+    .update(`${header}.${body}`)
+    .digest('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+  const sigBuf = Buffer.from(sig);
+  const expBuf = Buffer.from(expected);
+  if (sigBuf.length !== expBuf.length || !timingSafeEqual(sigBuf, expBuf)) return null;
+  try {
+    const claims = JSON.parse(base64UrlDecode(body));
+    if (claims.exp && Math.floor(Date.now() / 1000) > Number(claims.exp)) return null;
+    return claims;
+  } catch {
+    return null;
+  }
+}
+
+function safePasswordMatch(inputPassword, expectedPassword) {
+  const a = Buffer.from(String(inputPassword || ''), 'utf8');
+  const b = Buffer.from(String(expectedPassword || ''), 'utf8');
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
+
+function buildAdminUser() {
+  return {
+    id: ADMIN_AUTH_USER_ID,
+    aud: 'authenticated',
+    role: 'authenticated',
+    email: ADMIN_AUTH_EMAIL,
+    email_confirmed_at: '2026-01-01T00:00:00.000Z',
+    phone: '',
+    confirmed_at: '2026-01-01T00:00:00.000Z',
+    app_metadata: { provider: 'email', providers: ['email'], role: 'admin' },
+    user_metadata: { role: 'admin', email: ADMIN_AUTH_EMAIL },
+    identities: [],
+    created_at: '2026-01-01T00:00:00.000Z',
+    updated_at: '2026-01-01T00:00:00.000Z'
+  };
+}
+
+function buildAdminSession() {
+  const now = Math.floor(Date.now() / 1000);
+  const expiresIn = 86400;
+  const expiresAt = now + expiresIn;
+  const user = buildAdminUser();
+  const accessToken = signAdminJwt({
+    sub: user.id,
+    aud: 'authenticated',
+    role: 'authenticated',
+    email: user.email,
+    app_metadata: user.app_metadata,
+    user_metadata: user.user_metadata,
+    iat: now,
+    exp: expiresAt
+  });
+  const refreshToken = signAdminJwt({
+    sub: user.id,
+    type: 'refresh',
+    iat: now,
+    exp: now + 86400 * 30
+  });
+  return {
+    access_token: accessToken,
+    token_type: 'bearer',
+    expires_in: expiresIn,
+    expires_at: expiresAt,
+    refresh_token: refreshToken,
+    user
+  };
+}
+
+async function handleBuiltInAuth(req, res, parsedUrl) {
+  const method = (req.method || 'GET').toUpperCase();
+  const pathname = parsedUrl.pathname;
+  const headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store'
+  };
+
+  if (method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  if (pathname === '/auth/v1/token' && method === 'POST') {
+    const grantType = parsedUrl.searchParams.get('grant_type') || 'password';
+    const body = await parseRequestBody(req);
+
+    if (grantType === 'password') {
+      const email = String(body?.email || '').trim().toLowerCase();
+      const password = String(body?.password || '');
+      if (email !== ADMIN_AUTH_EMAIL || !safePasswordMatch(password, ADMIN_AUTH_PASSWORD)) {
+        res.writeHead(400, headers);
+        res.end(JSON.stringify({
+          error: 'invalid_grant',
+          error_description: 'Invalid login credentials',
+          msg: 'Invalid login credentials'
+        }));
+        return;
+      }
+      res.writeHead(200, headers);
+      res.end(JSON.stringify(buildAdminSession()));
+      return;
+    }
+
+    if (grantType === 'refresh_token') {
+      const claims = verifyAdminJwt(body?.refresh_token);
+      if (!claims || claims.type !== 'refresh' || claims.sub !== ADMIN_AUTH_USER_ID) {
+        res.writeHead(400, headers);
+        res.end(JSON.stringify({
+          error: 'invalid_grant',
+          error_description: 'Invalid refresh token',
+          msg: 'Invalid refresh token'
+        }));
+        return;
+      }
+      res.writeHead(200, headers);
+      res.end(JSON.stringify(buildAdminSession()));
+      return;
+    }
+
+    res.writeHead(400, headers);
+    res.end(JSON.stringify({ error: 'unsupported_grant_type', error_description: 'Unsupported grant type' }));
+    return;
+  }
+
+  if (pathname === '/auth/v1/user' && method === 'GET') {
+    const token = /^Bearer\s+(.+)$/i.exec(req.headers.authorization || '')?.[1];
+    const claims = verifyAdminJwt(token);
+    if (!claims || claims.sub !== ADMIN_AUTH_USER_ID) {
+      res.writeHead(401, headers);
+      res.end(JSON.stringify({ code: 401, error_code: 'bad_jwt', msg: 'Invalid JWT' }));
+      return;
+    }
+    res.writeHead(200, headers);
+    res.end(JSON.stringify(buildAdminUser()));
+    return;
+  }
+
+  if (pathname === '/auth/v1/logout' && method === 'POST') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  res.writeHead(404, headers);
+  res.end(JSON.stringify({ code: 404, msg: 'Auth endpoint not found' }));
+}
 
 // Import the consolidated API gateway handler
 const { default: gatewayHandler } = await import('./api/[...route].js');
@@ -76,6 +268,12 @@ const server = createServer(async (req, res) => {
   if (pathname === '/healthz' || pathname === '/api/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() }));
+    return;
+  }
+
+  // 1b. Built-in Supabase-compatible Admin Auth (when ADMIN_AUTH_EMAIL & ADMIN_AUTH_PASSWORD are configured)
+  if (ADMIN_AUTH_ENABLED && pathname.startsWith('/auth/v1/')) {
+    await handleBuiltInAuth(req, res, parsedUrl);
     return;
   }
 
